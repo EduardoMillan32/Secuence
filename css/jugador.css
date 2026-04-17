@@ -1,46 +1,51 @@
 /* css/jugador.css */
 .mano {
-    position: fixed; 
-    bottom: 0; 
-    right: 0; 
-    width: 100%; 
-    max-width: 800px; 
-    margin: 0 auto; 
-    background: rgba(44, 62, 80, 0.98); 
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 900px;
+    background: #2c3e50; 
     border-top: 3px solid #f1c40f;
     z-index: 1000;
-    padding: 10px 5px;
-    box-sizing: border-box; 
+    padding: 8px 10px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    min-height: 140px;
+    gap: 8px;
 }
 
-.mano h3 {
-    text-align: center;
-    margin: 0 0 10px 0;
-    font-size: 1rem;
+.mano h3, .mano span {
+    color: white !important;
+    margin: 0;
+    font-size: 0.9rem;
 }
 
 #contenedor-cartas {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 5px; 
-    flex-wrap: nowrap; 
-    overflow-x: auto; 
-    padding-bottom: 10px;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 5px 0;
+    scrollbar-width: none; 
 }
+#contenedor-cartas::-webkit-scrollbar { display: none; }
 
 .carta-mano {
-    width: clamp(45px, 15vw, 85px); 
-    height: auto;
+    height: 90px; 
+    width: auto;
     cursor: pointer;
     transition: transform 0.2s;
-    border-radius: 4px;
+    border-radius: 5px;
     flex-shrink: 0;
+    border: 2px solid transparent;
+}
+
+@media (min-width: 768px) {
+    .carta-mano { height: 120px; }
+    .mano { padding: 15px; }
 }
 
 .carta-mano:hover {
@@ -49,8 +54,8 @@
 }
 
 .carta-seleccionada {
-    border: 3px solid #f1c40f;
-    transform: translateY(-25px);
+    border-color: #f1c40f !important;
+    transform: translateY(-10px);
 }
 
 /* Etiquetas Jacks */
@@ -75,13 +80,14 @@
 
 /* --- Botón de Descartar Carta Muerta --- */
 #btn-descartar {
-    margin-top: 15px;
     background-color: #c0392b;
-    color: white;
-    width: 100%;
-    font-size: 1rem;
-    padding: 8px;
-    border: 2px solid transparent;
+    color: white !important;
+    border: none;
+    padding: 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.8rem;
 }
 #btn-descartar:hover { background-color: #e74c3c; border-color: white; }
 
@@ -103,3 +109,9 @@
     color: #e74c3c; line-height: 0.5; font-weight: bold;
 }
 .cerrar-modal:hover { color: #ff7675; }
+
+#interfaz-victoria-mano h2 {
+    color: #f1c40f !important;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}

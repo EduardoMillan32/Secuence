@@ -1,0 +1,39 @@
+/* css/general.css */
+body {
+    background-color: #1a1a1a;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+/* Lógica de pantallas */
+.pantalla { display: none; }
+.pantalla.activa { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.oculta { display: none !important; }
+
+.mano {
+    min-height: 180px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Botones genéricos */
+button {
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1c40f;
+    color: black;
+    font-weight: bold;
+}
+
+button:disabled { 
+    background-color: #95a5a6; 
+    cursor: not-allowed; 
+}

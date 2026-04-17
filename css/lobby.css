@@ -1,0 +1,38 @@
+/* css/lobby.css */
+.caja-formulario, .caja-lobby {
+    background: #2c3e50;
+    padding: 30px;
+    border-radius: 10px;
+    border: 2px solid #f1c40f;
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+#input-nombre {
+    padding: 10px;
+    font-size: 1.1rem;
+    width: 80%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+}
+
+.seleccion-equipo { display: flex; justify-content: space-around; margin: 20px 0; }
+.btn-color { color: white; border: 2px solid transparent; }
+.btn-color:hover { transform: scale(1.1); }
+
+.btn-color.rojo { background-color: #e74c3c; }
+.btn-color.azul { background-color: #3498db; }
+.btn-color.verde { background-color: #2ecc71; }
+
+#lista-jugadores {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    background: #34495e;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.alerta { color: #e74c3c; font-weight: bold; margin-top: 15px; }

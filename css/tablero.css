@@ -1,0 +1,98 @@
+/* css/tablero.css */
+#contenedor-juego {
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.tablero {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); 
+    gap: 4px;
+    background-color: #1a472a; 
+    padding: 10px;
+    max-width: 800px;
+    width: 95vw;
+    border: 8px solid #3e2723;
+    border-radius: 12px;
+    margin: 0 auto 180px auto;
+}
+
+.casilla {
+    background-color: white;
+    aspect-ratio: 2 / 3; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box; 
+}
+
+.casilla img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none; 
+}
+
+.casilla:hover {
+    transform: scale(1.05);
+    background-color: #f1c40f;
+    z-index: 20;
+}
+
+.esquina {
+    background-color: #f1c40f;
+    color: #000;
+    font-size: 2rem;
+}
+
+/* Fichas */
+.ficha {
+    position: absolute;
+    width: 70%;      /* Ajusta el tamaño al círculo que vimos en tu captura */
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    z-index: 10;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 2px 5px rgba(0,0,0,0.8);
+    border: 2px solid white;
+    pointer-events: none; 
+}
+
+/* Ahora sí, los colores que ya tienes */
+.ficha-rojo { background-color: #e74c3c; }
+.ficha-azul { background-color: #3498db; }
+.ficha-verde { background-color: #2ecc71; }
+
+/* --- ANIMACIÓN SEQUENCE GANADOR POR EQUIPO --- */
+.casilla.protegida-rojo {
+    border: 3px solid #e74c3c !important;
+    animation: brillar-rojo 1.5s infinite alternate;
+}
+.casilla.protegida-azul {
+    border: 3px solid #3498db !important;
+    animation: brillar-azul 1.5s infinite alternate;
+}
+.casilla.protegida-verde {
+    border: 3px solid #2ecc71 !important;
+    animation: brillar-verde 1.5s infinite alternate;
+}
+
+@keyframes brillar-rojo {
+    from { box-shadow: inset 0 0 5px #e74c3c, 0 0 5px #e74c3c; }
+    to { box-shadow: inset 0 0 20px #e74c3c, 0 0 20px #e74c3c; }
+}
+@keyframes brillar-azul {
+    from { box-shadow: inset 0 0 5px #3498db, 0 0 5px #3498db; }
+    to { box-shadow: inset 0 0 20px #3498db, 0 0 20px #3498db; }
+}
+@keyframes brillar-verde {
+    from { box-shadow: inset 0 0 5px #2ecc71, 0 0 5px #2ecc71; }
+    to { box-shadow: inset 0 0 20px #2ecc71, 0 0 20px #2ecc71; }
+}

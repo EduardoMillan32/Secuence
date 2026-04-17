@@ -1,0 +1,99 @@
+/* css/jugador.css */
+.mano {
+    position: fixed; 
+    bottom: 10px; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95vw; 
+    max-width: 800px;
+    height: auto;
+    background: rgba(52, 73, 94, 0.95);
+    border: 2px solid #f1c40f;
+    border-radius: 10px;
+    z-index: 100;
+    padding: 10px 15px 20px 15px;
+    box-sizing: border-box;
+}
+
+.mano h3 {
+    text-align: center;
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+}
+
+#contenedor-cartas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.carta-mano {
+    width: clamp(50px, 10vw, 90px); 
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 5px;
+}
+
+.carta-mano:hover {
+    transform: translateY(-20px); /* Ahora salta hacia arriba */
+    box-shadow: 0 10px 15px rgba(0,0,0,0.5);
+}
+
+.carta-seleccionada {
+    border: 3px solid #f1c40f;
+    transform: translateY(-25px);
+}
+
+/* Etiquetas Jacks */
+.etiqueta-jack {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 10px;
+    white-space: nowrap;
+    z-index: 15;
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.jack-add { background: #27ae60; border: 2px solid white; } 
+.jack-remove { background: #c0392b; border: 2px solid white; }
+
+/* --- Botón de Descartar Carta Muerta --- */
+#btn-descartar {
+    margin-top: 15px;
+    background-color: #c0392b;
+    color: white;
+    width: 100%;
+    font-size: 1rem;
+    padding: 8px;
+    border: 2px solid transparent;
+}
+#btn-descartar:hover { background-color: #e74c3c; border-color: white; }
+
+/* --- Ventana Emergente de Reglas (Modal) --- */
+.oculta-modal { display: none !important; }
+
+#modal-reglas {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    justify-content: center; align-items: center; z-index: 1000;
+}
+.contenido-modal {
+    background: #2c3e50; padding: 20px 30px; border: 3px solid #f1c40f;
+    border-radius: 10px; max-width: 500px; width: 90%; color: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+}
+.cerrar-modal { 
+    float: right; font-size: 2.5rem; cursor: pointer; 
+    color: #e74c3c; line-height: 0.5; font-weight: bold;
+}
+.cerrar-modal:hover { color: #ff7675; }

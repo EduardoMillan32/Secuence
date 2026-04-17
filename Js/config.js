@@ -32,7 +32,7 @@ function inicializarReglas(jugadoresTotales, equiposTotales) {
         configuracionJuego.sequencesParaGanar = 2; 
     }
 
-    // Regla de cartas a repartir
+    // Regla de cartas a repartir (Mantenemos tu lógica original perfecta)
     if (jugadoresTotales === 2) configuracionJuego.cartasPorJugador = 7;
     else if (jugadoresTotales >= 3 && jugadoresTotales <= 4) configuracionJuego.cartasPorJugador = 6;
     else if (jugadoresTotales === 6) configuracionJuego.cartasPorJugador = 5;
@@ -42,6 +42,28 @@ function inicializarReglas(jugadoresTotales, equiposTotales) {
     console.log("Las reglas dinámicas han sido configuradas:", configuracionJuego);
 }
 
-// Inicializamos la partida actual (Modifica esto si juegan más personas)
+// ============================================
+// SISTEMA DE NOTIFICACIONES TOAST (reemplaza alert)
+// ============================================
+window.mostrarToast = function(mensaje, tipo = "info", duracion = 3000) {
+    const contenedor = document.getElementById('contenedor-toast');
+    if (!contenedor) return alert(mensaje); // Respaldo de seguridad
+
+    const toast = document.createElement('div');
+    toast.classList.add('toast', `toast-${tipo}`);
+    toast.innerText = mensaje;
+    contenedor.appendChild(toast);
+
+    // Forzar reflow para que la animación de entrada funcione
+    toast.offsetHeight;
+    toast.classList.add('toast-visible');
+
+    setTimeout(() => {
+        toast.classList.remove('toast-visible');
+        toast.addEventListener('transitionend', () => toast.remove());
+    }, duracion);
+};
+
+// Inicializamos la partida actual
 inicializarReglas(2, 2);
 console.log("Reglas cargadas:", configuracionJuego);

@@ -15,7 +15,7 @@ const mapaCartas = [
 ];
 
 function generarTablero() {
-    tableroElemento.innerHTML = ""; // Limpiar antes de generar
+    tableroElemento.innerHTML = ""; 
     mapaCartas.forEach((carta, indice) => {
         const casilla = document.createElement('div');
         casilla.classList.add('casilla');
@@ -29,10 +29,14 @@ function generarTablero() {
             casilla.innerHTML = "⭐"; 
         } else {
             const img = document.createElement('img');
-            // La API usa '0' para el 10 (ej: 10S -> 0S)
             let codigoAPI = carta.length === 3 ? "0" + carta[2] : carta;
             img.src = `https://deckofcardsapi.com/static/img/${codigoAPI}.png`;
             img.alt = carta;
+            
+            // MEJORAS DE RENDIMIENTO Y UX
+            img.loading = 'lazy'; 
+            img.draggable = false; 
+            
             casilla.appendChild(img);
         }
         tableroElemento.appendChild(casilla);

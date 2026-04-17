@@ -4,7 +4,7 @@ let manoPropia = [];
 let cartaSeleccionadaIdx = null; 
 const contenedorMano = document.getElementById('contenedor-cartas');
 
-// NUEVA FUNCIÓN: Se conecta a TU bolsillo en Firebase y vigila tus cartas
+// Se conecta a TU bolsillo en Firebase y vigila tus cartas
 function inicializarManoFirebase() {
     miJugadorRef.child('mano').on('value', (snapshot) => {
         if(snapshot.exists()) {
@@ -21,7 +21,8 @@ function renderizarMano() {
     
     manoPropia.forEach((carta, index) => {
         const contenedorCarta = document.createElement('div');
-        contenedorCarta.style.position = 'relative'; 
+        // MEJORA: Clase añadida para compatibilidad con el nuevo CSS responsivo
+        contenedorCarta.classList.add('contenedor-carta-individual'); 
 
         const imgCarta = document.createElement('img');
         
@@ -31,6 +32,10 @@ function renderizarMano() {
 
         imgCarta.src = `https://deckofcardsapi.com/static/img/${codigoAPI}.png`;
         imgCarta.classList.add('carta-mano');
+        
+        // MEJORA: Rendimiento y experiencia de usuario en móviles
+        imgCarta.loading = 'lazy'; 
+        imgCarta.draggable = false;
         
         if (index === cartaSeleccionadaIdx) {
             imgCarta.classList.add('carta-seleccionada');

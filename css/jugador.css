@@ -1,125 +1,191 @@
 /* css/jugador.css */
+
+/* PANEL PRINCIPAL (Glassmorphism) */
 .mano {
     position: fixed;
-    bottom: 10px;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 95%;
-    max-width: 650px; /* Mismo ancho máximo que el tablero para que se vea alineado */
-    
-    background: rgba(26, 37, 47, 0.95) !important; 
-    backdrop-filter: blur(5px);
-    
+    width: 100%;
+    max-width: 680px;
+
+    /* Fondo translúcido con desenfoque */
+    background: rgba(26, 37, 47, 0.97) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
     border: 2px solid #f1c40f;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+    border-bottom: none;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
     z-index: 1000;
-    
-    /* Relleno súper ajustado para matar el espacio vacío */
-    padding: 10px 15px; 
+
+    padding: 8px 12px 12px 12px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    
+    /* Transición suave cuando sea tu turno */
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Quitamos márgenes innecesarios a los textos */
-#interfaz-cartas > div:first-child { margin-bottom: 5px !important; }
-.mano h3, .mano span { color: white !important; font-family: sans-serif; margin: 0; }
+/* Colores dinámicos del turno (Se controlan desde game.js) */
+.mano.mi-turno {
+    border-color: #2ecc71;
+    box-shadow: 0 -5px 20px rgba(46, 204, 113, 0.3);
+}
+.mano.esperando-turno {
+    border-color: #e74c3c;
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
+}
 
+.mano h3, .mano span { 
+    color: white !important; 
+    font-family: sans-serif; 
+    margin: 0; 
+}
+.mano h3 { font-size: 0.85rem; text-align: center; }
+
+/* CONTENEDOR DE CARTAS */
 #contenedor-cartas {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     width: 100%;
-    overflow-x: auto; 
-    padding: 5px 2px 10px 2px; 
+    overflow-x: auto;
+    padding: 5px 2px 8px 2px;
     box-sizing: border-box;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
 }
 #contenedor-cartas::-webkit-scrollbar { display: none; }
 
+.contenedor-carta-individual {
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* LAS CARTAS */
 .carta-mano {
-    height: 75px; /* Tamaño móvil */
+    height: 70px;
     width: auto;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
     border-radius: 5px;
     flex-shrink: 0;
     border: 2px solid transparent;
-}
-
-@media (min-width: 768px) {
-    #contenedor-cartas { justify-content: center; }
-    .carta-mano { height: 95px; } /* Tamaño PC (visible pero no estorboso) */
+    -webkit-user-drag: none;
 }
 
 .carta-mano:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    transform: translateY(-8px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.5);
 }
 
 .carta-seleccionada {
     border-color: #f1c40f !important;
-    transform: translateY(-15px) !important;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    transform: translateY(-12px) !important;
+    box-shadow: 0 8px 20px rgba(241, 196, 15, 0.4) !important;
 }
 
+/* BOTÓN DESCARTAR */
 #btn-descartar {
     background-color: #c0392b;
     color: white !important;
     border: none;
-    padding: 6px 15px;
-    border-radius: 5px;
+    padding: 6px 14px;
+    border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 0px; /* Cero margen para ahorrar espacio */
-    font-size: 0.9rem;
+    margin-top: 4px;
+    font-size: 0.8rem;
+    align-self: center;
+    transition: background-color 0.2s;
 }
-#btn-descartar:hover { background-color: #e74c3c; border-color: white; }
+#btn-descartar:hover { 
+    background-color: #e74c3c; 
+    box-shadow: none;
+}
 
-/* Etiquetas Jacks */
+/* ETIQUETAS JACKS */
 .etiqueta-jack {
     position: absolute;
-    top: -12px;
+    top: -10px;
     left: 50%;
     transform: translateX(-50%);
     color: white !important;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     font-weight: bold;
-    padding: 3px 6px;
-    border-radius: 10px;
+    padding: 2px 5px;
+    border-radius: 8px;
     white-space: nowrap;
     z-index: 15;
     pointer-events: none;
     box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-.jack-add { background: #27ae60; border: 2px solid white; } 
-.jack-remove { background: #c0392b; border: 2px solid white; }
+.jack-add { background: #27ae60; border: 1.5px solid white; }
+.jack-remove { background: #c0392b; border: 1.5px solid white; }
 
-/* Ventana Emergente de Reglas (Modal) */
+#interfaz-victoria-mano { text-align: center; padding: 10px 0; }
+#interfaz-victoria-mano h2 { color: #f1c40f !important; font-size: 1.1rem; margin-bottom: 8px; }
+
+/* REGLAS MODAL */
 .oculta-modal { display: none !important; }
 
 #modal-reglas {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: rgba(0,0,0,0.85);
-    justify-content: center; align-items: center; z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
 }
+
 .contenido-modal {
-    background: #2c3e50; padding: 20px 30px; border: 3px solid #f1c40f;
-    border-radius: 10px; max-width: 500px; width: 90%; color: white;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+    background: linear-gradient(145deg, #2c3e50, #34495e);
+    padding: 25px 25px;
+    border: 3px solid #f1c40f;
+    border-radius: 14px;
+    max-width: 500px;
+    width: 90%;
+    color: white;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+    max-height: 85vh;
+    overflow-y: auto;
 }
-.cerrar-modal { 
-    float: right; font-size: 2.5rem; cursor: pointer; 
-    color: #e74c3c; line-height: 0.5; font-weight: bold;
-}
+
+.contenido-modal h2 { margin-top: 0; }
+.lista-reglas { padding-left: 0; list-style: none; }
+.lista-reglas li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; line-height: 1.4; }
+.lista-reglas li:last-child { border-bottom: none; }
+.cerrar-modal { float: right; font-size: 2.2rem; cursor: pointer; color: #e74c3c; line-height: 0.5; font-weight: bold; transition: color 0.2s; }
 .cerrar-modal:hover { color: #ff7675; }
 
-#interfaz-victoria-mano h2 {
-    color: #f1c40f !important;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+/* RESPONSIVE: TABLETAS */
+@media (min-width: 768px) {
+    .mano { width: 95%; padding: 12px 20px 15px 20px; }
+    #contenedor-cartas { justify-content: center; gap: 10px; }
+    .carta-mano { height: 90px; }
+    .mano h3 { font-size: 1rem; }
+    .etiqueta-jack { font-size: 0.7rem; padding: 3px 6px; }
+    #btn-descartar { font-size: 0.9rem; padding: 8px 18px; }
+}
+
+/* RESPONSIVE: DESKTOP GRANDE */
+@media (min-width: 1200px) {
+    .carta-mano { height: 100px; }
+    .mano { max-width: 750px; }
+}
+
+/* RESPONSIVE: CELULARES MUY PEQUEÑOS */
+@media (max-width: 360px) {
+    .carta-mano { height: 60px; }
+    .mano h3 { font-size: 0.75rem; }
+    #btn-descartar { font-size: 0.75rem; padding: 5px 10px; }
+    .etiqueta-jack { font-size: 0.5rem; padding: 1px 3px; }
 }

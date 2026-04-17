@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Sequence: Multijugador</title>
     
     <link rel="stylesheet" href="css/general.css">
@@ -12,11 +12,13 @@
 </head>
 <body>
     
+    <div id="contenedor-toast"></div>
+
     <div id="pantalla-login" class="pantalla activa">
         <h1>Sequence 🃏</h1>
         <div class="caja-formulario">
             <h3>Ingresa tu nombre para jugar</h3>
-            <input type="text" id="input-nombre" placeholder="Ej. Carlos">
+            <input type="text" id="input-nombre" placeholder="Ej. Carlos" autocomplete="off">
             <button onclick="entrarLobby()">Siguiente</button>
         </div>
     </div>
@@ -25,8 +27,7 @@
         <h1>Sala de Espera ⏳</h1>
         <div class="caja-lobby">
             <h3>Jugadores Conectados</h3>
-            <ul id="lista-jugadores">
-                </ul>
+            <ul id="lista-jugadores"></ul>
 
             <h3 id="titulo-equipo">Elige tu equipo</h3>
             <div class="seleccion-equipo">
@@ -53,7 +54,7 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <span style="visibility: hidden;">ℹ️</span> 
                     <h3 style="margin: 0;">Tu Mano</h3>
-                    <span style="cursor: pointer; font-size: 1.5rem;" title="Ver Reglas" onclick="abrirReglas()">ℹ️</span>
+                    <span style="cursor: pointer; font-size: 1.5rem; color: #f1c40f;" title="Ver Reglas" onclick="abrirReglas()">ℹ️</span>
                 </div>
                 <div id="contenedor-cartas"></div>
                 <button id="btn-descartar" onclick="intentarDescartarCartaMuerta()">Descartar Carta Muerta 🗑️</button>

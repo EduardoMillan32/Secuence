@@ -1,26 +1,70 @@
 /* css/lobby.css */
 .caja-formulario, .caja-lobby {
-    background: #2c3e50;
+    background: linear-gradient(145deg, #2c3e50, #34495e);
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 16px;
     border: 2px solid #f1c40f;
     text-align: center;
     width: 90%;
-    max-width: 400px;
+    max-width: 420px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.caja-formulario h1 {
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+}
+
+.caja-formulario h3, .caja-lobby h3 {
+    color: #bdc3c7;
+    margin-bottom: 15px;
 }
 
 #input-nombre {
-    padding: 10px;
+    padding: 12px 15px;
     font-size: 1.1rem;
-    width: 80%;
+    width: 85%;
     margin-bottom: 20px;
-    border-radius: 5px;
-    border: none;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background: #ecf0f1;
+    color: #2c3e50;
+    transition: border-color 0.2s;
+    outline: none;
 }
 
-.seleccion-equipo { display: flex; justify-content: space-around; margin: 20px 0; }
-.btn-color { color: white; border: 2px solid transparent; }
-.btn-color:hover { transform: scale(1.1); }
+#input-nombre:focus {
+    border-color: #f1c40f;
+}
+
+.seleccion-equipo { 
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.btn-color { 
+    color: white;
+    border: 3px solid transparent;
+    padding: 10px 22px;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    min-width: 80px;
+}
+
+.btn-color:hover { 
+    transform: scale(1.08);
+}
+
+/* Feedback visual al seleccionar color */
+.btn-color.color-activo {
+    border-color: white !important;
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    transform: scale(1.1);
+}
 
 .btn-color.rojo { background-color: #e74c3c; }
 .btn-color.azul { background-color: #3498db; }
@@ -30,9 +74,37 @@
     list-style: none;
     padding: 0;
     text-align: left;
-    background: #34495e;
-    padding: 10px;
-    border-radius: 5px;
+    background: rgba(52, 73, 94, 0.8);
+    padding: 12px;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
-.alerta { color: #e74c3c; font-weight: bold; margin-top: 15px; }
+#lista-jugadores li {
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.95rem;
+}
+
+#lista-jugadores li:last-child {
+    border-bottom: none;
+}
+
+.alerta { 
+    color: #e74c3c;
+    font-weight: bold; 
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+/* Responsive para pantallas muy pequeñas */
+@media (max-width: 360px) {
+    .caja-formulario, .caja-lobby {
+        padding: 20px 15px;
+    }
+    .btn-color {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}

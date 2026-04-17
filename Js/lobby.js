@@ -35,7 +35,6 @@ nombresEquiposRef.on('value', (snapshot) => {
 
 function entrarLobby() {
     const nombre = document.getElementById('input-nombre').value.trim();
-    // MEJORA: Usamos Toast en lugar de Alert
     if (nombre === "") return mostrarToast("Por favor ingresa un nombre válido.", "warning");
     
     miJugador.nombre = nombre;
@@ -70,7 +69,6 @@ function seleccionarColor(color) {
         cambiarNombreEquipo(this.innerText);
     });
 
-    // MEJORA: Resaltar visualmente el botón seleccionado
     document.querySelectorAll('.btn-color').forEach(btn => btn.classList.remove('color-activo'));
     document.querySelector('.btn-color.' + color).classList.add('color-activo');
 
@@ -118,9 +116,7 @@ function actualizarVistaLobby() {
     lista.innerHTML = "";
     jugadoresEnSala.forEach(jugador => {
         const li = document.createElement('li');
-        
         let colorPublico = 'Pensando...';
-        // MEJORA: Añadimos emojis indicativos a la lista
         if (jugador.color === 'rojo') colorPublico = '🔴 Rojo';
         if (jugador.color === 'azul') colorPublico = '🔵 Azul';
         if (jugador.color === 'verde') colorPublico = '🟢 Verde';
@@ -162,8 +158,6 @@ function verificarReglasParaIniciar() {
         mensajeValidacion.innerText = "¡Todo listo! Iniciando partida...";
         
         if (jugadoresEnSala[0].id === miJugadorId) {
-            console.log("Soy el Anfitrión. Organizando turnos y repartiendo...");
-            
             partidaIniciada = true; 
             tableroRef.set(null); 
             
@@ -196,13 +190,17 @@ function verificarReglasParaIniciar() {
 
             baseDatos.ref('sala_activa/mazo').set(mazoMaestro);
             
+            // NUEVO: Instanciamos variables de Empate e Historial
             estadoJuegoRef.set({
                 iniciado: true,
                 jugadoresTotales: totalJugadores,
                 equiposTotales: numEquipos,
                 turnoActual: primerTurnoId,
                 ordenTurnos: ordenTurnos,
-                marcaTiempo: Date.now() 
+                marcaTiempo: Date.now(),
+                turnosPasados: 0,
+                empate: false,
+                historial: { 0: "🎮 <b>¡La partida ha comenzado!</b>" }
             });
         }
     }
@@ -219,12 +217,32 @@ estadoJuegoRef.on('value', (snapshot) => {
         bloqueCartas.classList.add('oculta');
         bloqueVictoria.classList.remove('oculta');
         
-        document.getElementById('texto-victoria-mano').innerText = 
-            `PARTIDA TERMINADA: ${estado.nombreAbandono} abandonó la sala. 🚪`;
+        document.getElementById('texto-victoria-mano').innerText = `PARTIDA TERMINADA: ${estado.nombreAbandono} abandonó la sala. 🚪`;
+        document.getElementById('texto-victoria-mano').style.color = "#f1c40f";
         
         const btnRevancha = document.getElementById('btn-revancha');
         btnRevancha.innerText = "Volver al Lobby principal";
         btnRevancha.disabled = false; 
+        return;
+    }
+
+    // NUEVO: Condición de Empate
+    if (estado && estado.empate) {
+        bloqueCartas.classList.add('oculta');
+        bloqueVictoria.classList.remove('oculta');
+        
+        const textoWin = document.getElementById('texto-victoria-mano');
+        textoWin.innerText = `¡EMPATE TÉCNICO! 🤝`;
+        textoWin.style.color = "#bdc3c7"; // Letras plateadas
+        
+        const btnRevancha = document.getElementById('btn-revancha');
+        if (jugadoresEnSala[0].id !== miJugadorId) {
+            btnRevancha.innerText = "Esperando al anfitrión...";
+            btnRevancha.disabled = true;
+        } else {
+            btnRevancha.innerText = "Volver al Lobby 🔄";
+            btnRevancha.disabled = false;
+        }
         return;
     }
     
@@ -251,14 +269,16 @@ estadoJuegoRef.on('value', (snapshot) => {
         bloqueVictoria.classList.remove('oculta');
         
         const nombreGanador = nombresEquipos[estado.victoria] || estado.victoria;
-        document.getElementById('texto-victoria-mano').innerText = `¡GANA EL EQUIPO ${nombreGanador.toUpperCase()}! 🎉`;
+        const textoWin = document.getElementById('texto-victoria-mano');
+        textoWin.innerText = `¡GANA EL EQUIPO ${nombreGanador.toUpperCase()}! 🎉`;
+        textoWin.style.color = "#f1c40f"; // Color dorado
         
         const btnRevancha = document.getElementById('btn-revancha');
         if (jugadoresEnSala[0].id !== miJugadorId) {
             btnRevancha.innerText = "Esperando al anfitrión...";
             btnRevancha.disabled = true;
         } else {
-            btnRevancha.innerText = "Volver al Lobby para Revancha 🔄";
+            btnRevancha.innerText = "Volver al Lobby 🔄";
             btnRevancha.disabled = false;
         }
         return; 

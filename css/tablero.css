@@ -8,20 +8,21 @@
     width: 100%;
 }
 
+/* ============================================
+   TABLERO RESPONSIVE MEJORADO
+   ============================================ */
 .tablero {
     display: grid;
     grid-template-columns: repeat(10, 1fr); 
     gap: 2px; 
     background-color: #1a472a; 
     padding: 6px;
-
     width: 95vw;
     max-width: 650px; 
-
     border: 5px solid #3e2723;
     border-radius: 8px;
     margin: 10px auto;
-    margin-bottom: 180px; /* Margen inferior dinámico para dejar espacio a la mano */
+    margin-bottom: 180px; 
     box-shadow: 0 8px 25px rgba(0,0,0,0.6);
 }
 
@@ -54,10 +55,7 @@
         z-index: 20;
     }
 }
-
-.casilla:active {
-    transform: scale(0.95);
-}
+.casilla:active { transform: scale(0.95); }
 
 .esquina {
     background-color: #f1c40f;
@@ -66,9 +64,7 @@
     cursor: default;
 }
 
-/* ============================================
-   FICHAS (Con efecto 3D)
-   ============================================ */
+/* FICHAS */
 .ficha {
     position: absolute;
     width: 65%;
@@ -79,63 +75,28 @@
     border: 2px solid white;
     pointer-events: none; 
 }
-
-/* Efecto volumen con gradientes */
 .ficha-rojo { background: radial-gradient(circle at 35% 35%, #ff6b6b, #c0392b); }
 .ficha-azul { background: radial-gradient(circle at 35% 35%, #74b9ff, #2980b9); }
 .ficha-verde { background: radial-gradient(circle at 35% 35%, #55efc4, #00b894); }
 
-/* --- ANIMACIÓN SEQUENCE GANADOR POR EQUIPO --- */
-.casilla.protegida-rojo {
-    border: 3px solid #e74c3c !important;
-    animation: brillar-rojo 1.5s infinite alternate;
-}
-.casilla.protegida-azul {
-    border: 3px solid #3498db !important;
-    animation: brillar-azul 1.5s infinite alternate;
-}
-.casilla.protegida-verde {
-    border: 3px solid #2ecc71 !important;
-    animation: brillar-verde 1.5s infinite alternate;
-}
+/* ANIMACIONES */
+.casilla.protegida-rojo { border: 3px solid #e74c3c !important; animation: brillar-rojo 1.5s infinite alternate; }
+.casilla.protegida-azul { border: 3px solid #3498db !important; animation: brillar-azul 1.5s infinite alternate; }
+.casilla.protegida-verde { border: 3px solid #2ecc71 !important; animation: brillar-verde 1.5s infinite alternate; }
 
-@keyframes brillar-rojo {
-    from { box-shadow: inset 0 0 5px #e74c3c, 0 0 5px #e74c3c; }
-    to { box-shadow: inset 0 0 15px #e74c3c, 0 0 15px #e74c3c; }
-}
-@keyframes brillar-azul {
-    from { box-shadow: inset 0 0 5px #3498db, 0 0 5px #3498db; }
-    to { box-shadow: inset 0 0 15px #3498db, 0 0 15px #3498db; }
-}
-@keyframes brillar-verde {
-    from { box-shadow: inset 0 0 5px #2ecc71, 0 0 5px #2ecc71; }
-    to { box-shadow: inset 0 0 15px #2ecc71, 0 0 15px #2ecc71; }
-}
+@keyframes brillar-rojo { from { box-shadow: inset 0 0 5px #e74c3c, 0 0 5px #e74c3c; } to { box-shadow: inset 0 0 15px #e74c3c, 0 0 15px #e74c3c; } }
+@keyframes brillar-azul { from { box-shadow: inset 0 0 5px #3498db, 0 0 5px #3498db; } to { box-shadow: inset 0 0 15px #3498db, 0 0 15px #3498db; } }
+@keyframes brillar-verde { from { box-shadow: inset 0 0 5px #2ecc71, 0 0 5px #2ecc71; } to { box-shadow: inset 0 0 15px #2ecc71, 0 0 15px #2ecc71; } }
 
-/* TABLETAS */
+/* RESPONSIVE ADAPTATIONS */
 @media (min-width: 768px) {
-    .tablero {
-        max-width: min(650px, 70vh);
-        gap: 3px;
-        padding: 8px;
-        margin-bottom: 200px;
-    }
+    .tablero { max-width: min(650px, 70vh); gap: 3px; padding: 8px; margin-bottom: 200px; }
     .esquina { font-size: 2rem; }
     .ficha { width: 70%; }
 }
 
-/* CELULARES PEQUEÑOS */
-@media (max-width: 400px) {
-    .tablero {
-        width: 98vw;
-        padding: 4px;
-        gap: 1px;
-        border-width: 3px;
-        margin-bottom: 160px;
-    }
+@media (max-width: 700px) {
+    .tablero { width: 98vw; padding: 4px; gap: 1px; border-width: 3px; margin-bottom: 160px; margin-top: 0; }
     .esquina { font-size: 1.2rem; }
-    .ficha {
-        width: 60%;
-        border-width: 1px;
-    }
+    .ficha { width: 60%; border-width: 1px; }
 }

@@ -20,6 +20,7 @@
     border: 8px solid #3e2723;
     border-radius: 12px;
     margin: 0 auto 180px auto;
+    margin-bottom: 200px !important;
 }
 
 .casilla {

@@ -1,86 +1,60 @@
 /* css/jugador.css */
-
-/* ========================================== */
-/* 1. PANEL FLOTANTE ELEGANTE (Glassmorphism) */
-/* ========================================== */
 .mano {
     position: fixed;
-    bottom: 15px; /* Flota separado del borde inferior */
+    bottom: 10px;
     left: 50%;
-    transform: translateX(-50%); /* Centrado exacto */
-    width: 95%; /* Deja un margen bonito a los lados en celular */
-    max-width: 800px; /* Tope máximo de ancho para PC */
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 650px; /* Mismo ancho máximo que el tablero para que se vea alineado */
     
-    /* EFECTO TRASLÚCIDO: Fondo oscuro con desenfoque de fondo */
-    background: rgba(26, 37, 47, 0.85) !important; 
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(26, 37, 47, 0.95) !important; 
+    backdrop-filter: blur(5px);
     
     border: 2px solid #f1c40f;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
     z-index: 1000;
-    padding: 12px;
+    
+    /* Relleno súper ajustado para matar el espacio vacío */
+    padding: 10px 15px; 
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
 }
 
-.mano h3, .mano span {
-    color: white !important;
-    font-family: sans-serif;
-}
+/* Quitamos márgenes innecesarios a los textos */
+#interfaz-cartas > div:first-child { margin-bottom: 5px !important; }
+.mano h3, .mano span { color: white !important; font-family: sans-serif; margin: 0; }
 
-#interfaz-cartas {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-/* ========================================== */
-/* 2. ZONA DE CARTAS (Celular por defecto) */
-/* ========================================== */
 #contenedor-cartas {
     display: flex;
     flex-direction: row;
-    /* VITAL: En celular alineamos al inicio para que el scroll no corte la primera carta */
-    justify-content: flex-start; 
+    justify-content: flex-start;
     align-items: center;
     gap: 8px;
     width: 100%;
-    overflow-x: auto; /* Scroll horizontal si hay muchas cartas */
-    padding: 15px 5px; 
+    overflow-x: auto; 
+    padding: 5px 2px 10px 2px; 
     box-sizing: border-box;
     scrollbar-width: none;
 }
 #contenedor-cartas::-webkit-scrollbar { display: none; }
 
 .carta-mano {
-    height: 80px; /* Muy compactas para que no tapen media pantalla en el cel */
+    height: 75px; /* Tamaño móvil */
     width: auto;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
-    border-radius: 4px;
-    flex-shrink: 0; /* Impide que se aplasten y se deformen */
+    border-radius: 5px;
+    flex-shrink: 0;
     border: 2px solid transparent;
 }
 
-/* ========================================== */
-/* 3. ADAPTACIÓN PARA COMPUTADORAS Y TABLETS */
-/* ========================================== */
 @media (min-width: 768px) {
-    #contenedor-cartas {
-        justify-content: center; /* En PC SÍ las centramos porque caben perfectamente */
-    }
-    .carta-mano {
-        height: 115px; /* Las hacemos más grandes y legibles */
-    }
+    #contenedor-cartas { justify-content: center; }
+    .carta-mano { height: 95px; } /* Tamaño PC (visible pero no estorboso) */
 }
 
-/* ========================================== */
-/* 4. EFECTOS E INTERFAZ SECUNDARIA */
-/* ========================================== */
 .carta-mano:hover {
     transform: translateY(-10px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
@@ -91,6 +65,19 @@
     transform: translateY(-15px) !important;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
+
+#btn-descartar {
+    background-color: #c0392b;
+    color: white !important;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 0px; /* Cero margen para ahorrar espacio */
+    font-size: 0.9rem;
+}
+#btn-descartar:hover { background-color: #e74c3c; border-color: white; }
 
 /* Etiquetas Jacks */
 .etiqueta-jack {
@@ -111,19 +98,6 @@
 
 .jack-add { background: #27ae60; border: 2px solid white; } 
 .jack-remove { background: #c0392b; border: 2px solid white; }
-
-#btn-descartar {
-    background-color: #c0392b;
-    color: white !important;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 5px;
-    font-size: 0.9rem;
-}
-#btn-descartar:hover { background-color: #e74c3c; border-color: white; }
 
 /* Ventana Emergente de Reglas (Modal) */
 .oculta-modal { display: none !important; }

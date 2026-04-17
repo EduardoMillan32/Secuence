@@ -12,27 +12,28 @@
 .tablero {
     display: grid;
     grid-template-columns: repeat(10, 1fr); 
-    gap: 4px;
+    gap: 2px; 
     background-color: #1a472a; 
-    padding: 10px;
-    max-width: 800px;
+    padding: 8px;
+
     width: 95vw;
-    border: 8px solid #3e2723;
-    border-radius: 12px;
-    margin: 0 auto 180px auto;
-    margin-bottom: 200px !important;
+    max-width: min(650px, 75vh); 
+
+    border: 6px solid #3e2723;
+    border-radius: 8px;
+    margin: 10px auto 160px auto;
 }
 
 .casilla {
     background-color: white;
-    aspect-ratio: 2 / 3; 
+    aspect-ratio: 2.5 / 3.5; 
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 3px;
     overflow: hidden;
     position: relative;
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 .casilla img {
